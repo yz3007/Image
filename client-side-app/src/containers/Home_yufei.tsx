@@ -26,6 +26,7 @@ class Home extends React.Component<{}, State> {
                             resolution="1s"
                             from={new Date().getTime()-60000}
                             to={new Date().getTime()}/>
+                        <h1>Hello world!</h1>
                     </div>
                 </TWConfigProvider>
             )}
