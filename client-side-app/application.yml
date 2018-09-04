@@ -1,0 +1,59 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{.Name}}
+  namespace: {{.Namespace}}
+  labels:
+    app: {{.Name}}
+spec:
+  replicas: {{.Replicas}}
+  selector:
+    matchLabels:
+      deployment_id: {{.Name}}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        deployment_id: {{.Name}}
+    spec:
+      containers:
+      - name: {{.Name}}
+        image: "{{.ImageName}}"
+        imagePullPolicy: Always
+        args: []
+        resources:
+          limits:
+            cpu: {{.MaxCpu}}
+          requests:
+            cpu: {{.MinCpu}}
+        env: []
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{.Name}}
+  namespace: {{.Namespace}}
+  annotations:
+    "thingswise.com/twapp": "1"
+    "thingswise.com/scope": {{.Scope}}
+    "thingswise.com/project": {{.Project}}
+    "thingswise.com/context": {{.Context}}
+    "thingswise.com/rewrite-context": /dist/
+    "thingswise.com/destination-port": "80"
+    "thingswise.com/name": "\"{{.Name}}\""
+    "thingswise.com/version": {{.Version}}
+
+spec:
+  selector:
+    deployment_id: {{.Name}}
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
