@@ -15,6 +15,25 @@ export default {
         path: '/',
         component: 'src/containers/Home',
       },
+
+      {
+      	path: '/yufei',
+      	component: 'src/containers/Home_yufei'
+
+      },
+
+      {
+      	path: '/haijun',
+      	component: 'src/containers/Home_haijun'
+
+      },
+
+      {
+      	path: '/yanna',
+      	component: 'src/containers/Home_yanna'
+
+      },
+
       {
         is404: true,
         component: 'src/containers/404',
