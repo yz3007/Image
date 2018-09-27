@@ -22,5 +22,5 @@ yarn-error.log*
 
 .twbuild/
 
-*.tgz
+#*.tgz
 twapp/services.json
